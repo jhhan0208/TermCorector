@@ -32,7 +32,7 @@
 
 ### 4️⃣ PDF 변환
 • 최종 변환 결과를 PDF로 저장<br>
-• 웹 뿐만 아니라 로컬 파일로 확인 가능 
+• 웹 뿐만 아니라 로컬 파일로 확인이 가능 
 ![image](https://github.com/user-attachments/assets/e23447b7-f896-421a-aa74-adc837198862)
 
 # ✔️ 결론
