@@ -1,4 +1,4 @@
-# TermCorector
+# TermCorrector
 ![image](https://github.com/user-attachments/assets/10951a4f-5d91-4531-a1ee-389c8a21669d)
 2024-2학기 캡스톤 디자인으로 진행했던 전공 용어 변환 서비스, "TermCorrector"입니다.
 
