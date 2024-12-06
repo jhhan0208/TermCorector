@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>TermCorrector</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="static/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Simple line icons-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css" rel="stylesheet" />
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;400;700&display=swap" rel="stylesheet">
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="static/css/styles2.css" rel="stylesheet" />
+        <script>
+            function updateFileName(input, displayId) {
+                const fileNames = Array.from(input.files).map(file => file.name).join(', ');
+                // 선택된 파일 이름을 해당 표시 ID에 업데이트
+                const displayText = fileNames || '여기를 클릭하여 파일을 선택하세요';
+                document.getElementById(displayId).textContent = displayText;
+
+                // 파일이 선택되면 업로드 박스에 클래스 추가하여 스타일 업데이트
+                const uploadBox = input.closest('.upload-box');
+                if (fileNames) {
+                    uploadBox.classList.add('file-selected');
+                } else {
+                    uploadBox.classList.remove('file-selected');
+                }
+            }
+        </script>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <a class="menu-toggle rounded" href="#"><i class="fas fa-bars"></i></a>
+        <nav id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand"><a href="#page-top">TermCorrector</a></li>
+                <li class="sidebar-nav-item"><a href="#page-top">홈</a></li>
+                <li class="sidebar-nav-item"><a href="menu">전체 노트</a></li>
+            </ul>
+        </nav>
+        <!-- Header-->
+        <div class="header-section-wrapper">
+        <header class="masthead d-flex align-items-center">
+            <div class="logo-container">
+                <img src="static/img/logo-no-background.png" alt="Logo" class="logo-img";>
+            </div>
+            <style>
+                .logo-container {
+                    position: absolute; /* 절대 위치를 사용하여 배치 */
+                    top: 8px; /* 헤더의 위쪽에서 20px 떨어짐 */
+                    left: 8px; /* 헤더의 왼쪽에서 20px 떨어짐 */
+                    z-index: 10; /* 다른 요소 위에 표시되도록 우선순위 설정 */
+                }
+            
+                .logo-img {
+                    width: 230px; /* 로고 너비를 설정 */
+                    height: auto; /* 비율 유지 */
+                }
+
+                @font-face {
+                    font-family: 'yg-jalnan';
+                    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            
+                .jalnan-title {
+                    font-family: 'yg-jalnan', sans-serif;
+                    color: white;
+                }
+
+                .btn-primary {
+                    font-family: 'yg-jalnan', sans-serif;
+                }
+                
+                /* 전체 컨테이너 스타일 */
+                .header-section-wrapper {
+                    display: flex;
+                    height: 100vh;
+                    flex-direction: row;
+                }
+
+                /* 헤더와 섹션 비율 */
+                header.masthead {
+                    flex: 5.5; /* 55% 차지 */
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    /*background-color: #007bff;*/
+                    background: url('/static/img/bg-masthead.jpg') no-repeat center center fixed !important;
+                    background-size: auto;
+                    color: white;
+                    padding: 120px 20px 20px;
+                }
+
+                #services {
+                    flex: 4.5; /* 45% 차지 */
+                    background-color: #343a40;
+                    color: white;
+                    padding: 20px;
+                }
+            </style>
+            <div class="container px-4 px-lg-5 text-center">
+                <h1 class="mb-1 jalnan-title" style="text-align: left;">TermCorrector</h1>
+                <h5 class="mb-5 jalnan-title" style="text-align: left; line-height: 1.5;">
+                    잘못 변환되는 전공 용어가 많아<br>
+                    강의 녹음으로 공부하는 데 어려움이 많으셨죠?<br>
+                    TermCorrector가 잘못 변환된 전공 용어 수정을 도와드립니다!<br>
+                    강의 녹음과 수업 PDF를 업로드 해주세요!
+                </h5>
+                <!-- 파일 업로드 -->
+                <div class="upload-container">
+                    <form action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
+                        <div class="upload-boxes" style="text-align: left;">
+                            <!-- 음성 파일 업로드 박스 -->
+                                <div class="upload-box">
+                                    <input type="file" id="audio_file" name="audio_file" class="d-none" accept=".m4a" required onchange="updateFileName(this, 'audio_file_display')">
+                                    <div class="upload-content" onclick="document.getElementById('audio_file').click();">
+                                        <img src="static/img/free-icon-voice-recording.png" alt="Audio File" class="upload-icon"> <!-- 음성 파일 아이콘 추가 -->
+                                        <h5 class="middle-blue">강의 녹음(m4a)</h5>
+                                        <p class="file-name-display" id="audio_file_display">파일을 선택하세요</p>
+                                    </div>
+                                    <!-- 체크박스를 표시할 위치 -->
+                                    <span class="checkmark" id="pdf_checkmark" style="display:none;">&#10003;</span>
+                                </div>
+                            <!-- PDF 자료 업로드 박스 -->
+                                <div class="upload-box">
+                                    <input type="file" id="pdf_file" name="pdf_file" class="d-none" accept=".pdf" required onchange="updateFileName(this, 'pdf_file_display')" multiple>
+                                    <div class="upload-content" onclick="document.getElementById('pdf_file').click();">
+                                        <img src="static/img/free-icon-pdf-file.png" alt="PDF File" class="upload-icon"> <!-- PDF 아이콘 추가 -->
+                                        <h5 class="middle-blue">강의 자료(PDF)</h5>
+                                        <p class="file-name-display" id="pdf_file_display">파일을 선택하세요</p>
+                                    </div>
+                                    <!-- 체크박스를 표시할 위치 -->
+                                    <span class="checkmark" id="audio_checkmark" style="display:none;">&#10003;</span>
+                                </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-auto-width mt-3">Upload Files</button>
+                    </form>
+                </div>
+
+                <style>
+                    .upload-container {
+                        max-width: 700px;
+                        margin-top: 20px;
+                        margin: 0 auto;
+                    }
+
+                    .upload-box {
+                        border: 2px dashed #007bff;
+                        border-radius: 15px;
+                        padding: 10px;
+                        text-align: center;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        background-color: #f9f9f9;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        min-height: 150px;
+                        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                        width: 220px;
+                        margin-right: 10px;
+                        margin-bottom: 10px; /* 업로드 박스 간의 간격을 줄임 */
+                    }
+
+                    .upload-boxes {
+                        display: flex;
+                        justify-content: flex-start;
+                        gap: 15px;
+                    }
+
+                    .upload-box:hover {
+                        background-color: #e6f0ff;
+                        border-color: #0056b3;
+                    }
+
+                    .upload-content h4 {
+                        margin-bottom: 8px;
+                        font-weight: 600;
+                        color: #0056b3;
+                    }
+
+                    .upload-content p {
+                        margin: 0;
+                        color: #6c757d;
+                        font-size: 0.95rem;
+                    }
+
+                    .upload-icon {
+                        width: 80px;
+                        height: auto;
+                        margin-bottom: 8px; /* 이미지와 텍스트 간 간격 조정 */
+                    }
+
+                    .btn-auto-width {
+                        width: auto;
+                        padding: 0.6rem 1rem;
+                        margin-left: -232px;
+                    }
+
+                    .btn-xl.custom-btn-spacing {
+                        padding: 0.9rem 1.5rem; /* 버튼 크기 축소 */
+                        margin-top: 5rem !important; /* 여백 조정으로 버튼을 아래로 이동 */
+                    }
+
+                    /* 파일이 선택된 경우 적용되는 스타일 */
+                    .file-selected {
+                        background-color: #e0f7e0;
+                        border-color: #28a745;
+                    }
+                    .file-selected .upload-content h4 {
+                        color: #28a745;
+                    }
+                    .file-selected .upload-content p {
+                        color: #28a745;
+                        font-weight: bold;
+                    }
+                    .middle-blue {
+                        font-family: 'yg-jalnan', sans-serif;
+                        color: #3399ff;
+                    }
+                    .file-name-display {
+                        font-family: 'yg-jalnan', sans-serif;
+                    }
+
+                </style>
+            </div>
+        </header>
+        <section class="content-section bg-primary text-white text-center" id="services">
+            <div class="container px-4 px-lg-5">
+                <div class="content-section-heading" style="position: relative; top: -50px;">
+                    <h3 class="text-secondary mb-0">Services</h3>
+                    <h2 class="mb-5">What We Offer</h2>
+                </div>
+                <div class="row gx-4 gx-lg-5">
+                    <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+                        <div class="service-icon rounded-circle mx-auto mb-3" style="overflow: hidden; width: 120px; height: 120px; display: flex; justify-content: center; align-items: center;">
+                            <img src="static/img/free-icon-text-to-speech-5803577.png" alt="Audio File" style="width: 60%; height: 60%; object-fit: cover;">
+                        </div>
+                        <h5><strong>정확한 변환</strong></h5>
+                        <p class="text-faded mb-0">잘못 변환된<br> 전공 용어 수정</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+                        <div class="service-icon rounded-circle mx-auto mb-3" style="overflow: hidden; width: 120px; height: 120px; display: flex; justify-content: center; align-items: center;">
+                            <img src="static/img/free-icon-edit-text.png" alt="Correction Icon" style="width: 60%; height: 60%; object-fit: cover;">
+                        </div>
+                        <h5><strong>명확한 표시</strong></h5>
+                        <p class="text-faded mb-0">잘못 변환된 부분과<br> 수정사항을 한눈에<br> 파악 가능</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+                        <div class="service-icon rounded-circle mx-auto mb-3" style="overflow: hidden; width: 120px; height: 120px; display: flex; justify-content: center; align-items: center;">
+                            <img src="static/img/free-icon-upload-file.png" alt="Upload Icon" style="width: 60%; height: 60%; object-fit: cover;">
+                        </div>
+                        <h5><strong>간편한 이용</strong></h5>
+                        <p class="text-faded mb-0">녹음 파일과 PDF 자료<br>만 있으면 이용 가능</p>
+                    </div>
+                </div>                
+            </div>
+        </section>
+        <style>
+            #services {
+                display: flex;
+                justify-content: center;  /* 가로 중앙 정렬 */
+                align-items: center;      /* 세로 중앙 정렬 */
+                height: 100vh;            /* 전체 화면 높이에 맞춰서 */
+            }
+        
+            .container {
+                text-align: center;       /* 텍스트를 중앙 정렬 */
+            }
+
+            /* yg-jalnan 폰트 추가 */
+            @font-face {
+                font-family: 'yg-jalnan';
+                src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+            /* #services 섹션에 yg-jalnan 글꼴 적용 */
+            #services {
+                font-family: 'yg-jalnan', sans-serif; /* yg-jalnan 글꼴 적용 */
+                text-align: center;                   /* 텍스트 중앙 정렬 */
+            }
+
+            .content-section-heading h3, 
+            .content-section-heading h2, 
+            #services h5, 
+            #services p {
+                font-family: 'yg-jalnan', sans-serif; /* 전체 텍스트에 yg-jalnan 글꼴 적용 */
+            }
+
+            /* 다른 스타일은 그대로 유지 */
+            .container {
+                text-align: center;       /* 텍스트를 중앙 정렬 */
+            }
+
+            .text-faded {
+                font-size: 0.9rem; /* 텍스트 크기를 조금 작게 설정 */
+            }
+        </style>
+    </div>
+        <!-- Callout-->
+        <section class="callout">
+            <div class="container px-4 px-lg-5 text-center">
+                <h2 class="mx-auto mb-5 custom-font">
+                    Welcome to
+                    <em>our</em>
+                    website!
+                </h2>
+            </div>
+            <style>
+                .custom-font {
+                    font-family: 'yg-jalnan', sans-serif;
+                }
+            </style>
+        </section>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="static/js/scripts.js"></script>
+    </body>
+</html>
