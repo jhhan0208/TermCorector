@@ -38,7 +38,7 @@
 ![image](https://github.com/user-attachments/assets/e23447b7-f896-421a-aa74-adc837198862)
 
 # ✔️ 데모 영상
-https://github.com/user-attachments/assets/f7a89642-cf8b-4396-8e64-c004f2c73618
+https://github.com/user-attachments/assets/038abcb1-5055-4686-85fb-c6be44aa4b1d
 
 # ✔️ 결론
 • 강의 자료(PDF)에서 전공 용어 키워드를 추출하고, 데이터 증강 기법을 활용하여 전공 용어 변환 오류 수정<br>
