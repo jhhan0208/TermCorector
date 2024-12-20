@@ -11,6 +11,13 @@
 
 <b>이 문제를 해결하기 위해 강의 PDF의 키워드들을 추가적으로 학습하여 전공 용어 인식률을 높이고 학습 활용도를 높이기 위해 프로젝트를 진행하였습니다!</b><br><br>
 
+# 💬 참여자
+
+|[Jusang Han](https://github.com/H-Software224)|[Shinwook Seon](https://github.com/tjs1012)|[Jihoon Han](https://github.com/jhhan0208)|
+|:-:|:-:|:-:|
+|<img src='https://avatars.githubusercontent.com/H-Software224' height=120 width=120></img>|<img src='https://avatars.githubusercontent.com/tjs1012' height=120 width=120></img>|<img src='https://avatars.githubusercontent.com/jhhan0208' height=120 width=120></img>
+Seraph server integration|Modeling/Flask website|Modeling/Flask website
+
 # ⚙️ 서비스 아키텍처
 ![image](https://github.com/user-attachments/assets/e7e825ff-2877-4a18-97a6-7625ee2a914e)
 
